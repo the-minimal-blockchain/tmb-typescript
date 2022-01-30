@@ -1,15 +1,16 @@
+import { ClientRequest } from 'http'
 import * as net from 'net'
 
-const PORT = 3000
-const IP = '127.0.0.1'
-
 function Server() {
-    const server = net.createServer();
-    server.on('connection', (socket: any) => {
-        socket.write('Hello World!\n');
-        socket.pipe(socket);
-    });
-    server.listen(PORT, IP);
+    net.createServer(socket => {
+        console.log('client connected')
+    }).listen(1337)
+}
+
+function Client() {
+    const req = new ClientRequest('http://localhost:1337')
+    req.end()
 }
 
 Server()
+Client()

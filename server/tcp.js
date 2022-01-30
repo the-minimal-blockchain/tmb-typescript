@@ -19,15 +19,16 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const http_1 = require("http");
 const net = __importStar(require("net"));
-const PORT = 3000;
-const IP = '127.0.0.1';
 function Server() {
-    const server = net.createServer();
-    server.on('connection', (socket) => {
-        socket.write('Hello World!\n');
-        socket.pipe(socket);
-    });
-    server.listen(PORT, IP);
+    net.createServer(socket => {
+        console.log('client connected');
+    }).listen(1337);
+}
+function Client() {
+    const req = new http_1.ClientRequest('http://localhost:1337');
+    req.end();
 }
 Server();
+Client();
